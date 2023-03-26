@@ -2,7 +2,7 @@ from pygame import *
 
 class Player(GameSprite):
    #метод для управления спрайтом стрелками клавиатуры
-   def update_1(self):
+    def update_1(self):
         keys = key.get_pressed()
         if keys[K_W] and self.rect.y > 5:
             self.rect.y -= self.speed
