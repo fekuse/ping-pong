@@ -43,8 +43,12 @@ racket1 = Player("racket.png", 30, 200, 4, 50, 150)
 racket2 = Player("racket.png", 520, 200, 4, 50, 150)
 ball = GameSprite("ball.png", 200,200,4,50,50)
 game = True #флаг сбрасывается кнопкой закрытия окна
+finish = False
 
 clock = time.Clock()
+
+speed_x = 3
+speed_y = 3
 
 while game:
    #событие нажатия на кнопку Закрыть
@@ -52,14 +56,22 @@ while game:
         if e.type == QUIT:
             game = False
 
-    
-    window.fill(back)
-    racket1.update_l()
-    racket2.update_r()
-    
-    racket1.reset()
-    racket2.reset()
-    ball.reset()
+    if finish != True:
+        window.fill(back)
+        racket1.update_l()
+        racket2.update_r()
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+
+        if sprite.collide_rect(racket1, ball) or sprite.collide_rect(racket2, ball):
+            speed_x *= -1
+
+        if ball.rect.y > win_height-50 or  ball.rect.y < 0: 
+            speed_y *= -1
+
+        racket1.reset()
+        racket2.reset()
+        ball.reset()
 
 
     display.update()
